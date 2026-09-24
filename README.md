@@ -1,6 +1,6 @@
 # 🎯 TABOO LIVE
 
-Jeu de **Taboo multijoueur en temps réel** : 2 équipes, jusqu'à 8 joueurs, 75 secondes par tour.
+Jeu de **Taboo multijoueur en temps réel** : 2 équipes, jusqu'à 12 joueurs, 90 secondes par tour.
 Un joueur fait deviner un mot à son équipe sans jamais prononcer les 5 mots interdits — pendant qu'un
 arbitre de l'équipe adverse guette la faute, le doigt sur le buzzer.
 
@@ -108,10 +108,10 @@ est une phrase, a un mot vide, n'a pas exactement 5 mots interdits, ou est dupli
 
 ## Règles du jeu
 
-- **2 équipes**, **4 joueurs maximum** par équipe (8 au total). Un 5ᵉ joueur est refusé
+- **2 équipes**, **6 joueurs maximum** par équipe (12 au total). Un 7ᵉ joueur est refusé
   avec le message « Cette équipe est complète ».
 - Une partie peut démarrer dès qu'il y a **au moins 1 joueur dans chaque équipe**.
-- **8 tours**, **75 secondes** chacun.
+- **8 tours**, **90 secondes** chacun.
 - À chaque tour, **exactement 2 personnes sur 8 voient la carte** :
   - **Celui qui fait deviner** (`guesser`) — le seul de son équipe à voir le mot.
     Boutons **PASSER** et **MOT TROUVÉ**.
@@ -243,4 +243,4 @@ ce n'est pas un masquage CSS ou React, la donnée ne quitte pas le serveur. Troi
 | « Active Anonymous Sign-In dans Supabase » | provider anonyme désactivé | Authentication → Providers → Anonymous |
 | « Supabase n'est pas configuré » | `.env.local` absent ou incomplet | Vérifie les deux noms de variables, puis relance `npm run dev` |
 | Les joueurs n'apparaissent pas en direct | Realtime inactif | Database → Replication → coche `rooms` et `players` |
-| « Cette équipe est complète » | 4 joueurs déjà présents | Rejoins l'autre équipe |
+| « Cette équipe est complète » | 6 joueurs déjà présents | Rejoins l'autre équipe |

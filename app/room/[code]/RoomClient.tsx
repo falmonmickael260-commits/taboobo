@@ -222,7 +222,7 @@ export default function RoomClient({ code }: { code: string }) {
   }, [room?.status]);
 
   // Recalage d'horloge : au demarrage d'un tour, on connait l'heure serveur
-  // (turn_ends_at - 75 s). Un telephone mal a l'heure affiche quand meme le
+  // (turn_ends_at - 90 s). Un telephone mal a l'heure affiche quand meme le
   // bon temps restant.
   const turnEndsAt = room?.turn_ends_at ?? null;
   useEffect(() => {

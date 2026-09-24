@@ -189,7 +189,7 @@ if (PLAY) {
     else ok("visibilite de la carte coherente", JSON.stringify(other)?.slice(0, 40));
 
     const secs = Math.round((new Date(st.room.turn_ends_at) - Date.now()) / 1000);
-    if (secs >= 70 && secs <= 78) ok("chrono serveur", `${secs} s`);
+    if (secs >= 85 && secs <= 93) ok("chrono serveur", `${secs} s`);
     else warn("chrono inattendu", `${secs} s — horloge locale decalee ?`);
 
     await call(supabase, "game_action", { p_code: code, p_action: "found" });
