@@ -3,9 +3,11 @@
 import type { Card, Role, Team } from "@/lib/types";
 
 interface Props {
+  /** null pour tout le monde sauf le devineur et l'arbitre : le serveur ne
+   *  l'envoie qu'a ces deux joueurs. */
   card: Card | null;
-  /** Le mot n'est visible que par celui qui fait deviner et par l'arbitre. */
-  revealed: boolean;
+  /** Vrai si le serveur est cense m'avoir envoye la carte (devineur/arbitre). */
+  canSee: boolean;
   role: Role;
   myTeam: Team | null;
   currentTeam: Team | null;
@@ -14,7 +16,7 @@ interface Props {
 
 export default function TabooCard({
   card,
-  revealed,
+  canSee,
   role,
   myTeam,
   currentTeam,
@@ -23,7 +25,8 @@ export default function TabooCard({
   const isA = currentTeam === "A";
   const accent = isA ? "from-teamA/25" : "from-teamB/25";
 
-  if (!card) {
+  // J'ai le droit de voir la carte, mais le serveur ne l'a pas encore renvoyee.
+  if (canSee && !card) {
     return (
       <div className="panel flex min-h-[19rem] items-center justify-center p-6">
         <p className="animate-pulse text-sm font-bold uppercase tracking-widest text-slate-500">
@@ -33,7 +36,7 @@ export default function TabooCard({
     );
   }
 
-  if (!revealed) {
+  if (!canSee || !card) {
     const myTeamIsPlaying = myTeam === currentTeam;
     return (
       <div className="panel hatch relative flex min-h-[19rem] flex-col items-center justify-center overflow-hidden p-6 text-center animate-pop">

@@ -40,10 +40,17 @@ export interface Card {
   category: string;
 }
 
-/** Charge utile renvoyee par toutes les RPC du jeu. */
+/**
+ * Charge utile renvoyee par toutes les RPC du jeu.
+ *
+ * `card` n'est rempli par le serveur QUE si l'appelant est le joueur qui fait
+ * deviner ou l'arbitre du tour. Pour tous les autres il vaut null : le mot ne
+ * transite jamais par leur navigateur.
+ */
 export interface GameState {
   room: Room;
   players: Player[];
+  card: Card | null;
 }
 
 export const MAX_PER_TEAM = 4;

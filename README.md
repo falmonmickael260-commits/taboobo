@@ -49,8 +49,8 @@ Ce fichier crée tout d'un coup, et il est **idempotent** (rejouable sans risque
 |---|---|
 | Tables | `rooms`, `players`, `cards` |
 | Données | les 150 cartes de `data/cards.json` |
-| RPC | `create_room`, `join_room`, `start_game`, `game_action`, `end_turn`, `restart_game`, `leave_room` |
-| RLS | lecture publique, **aucune écriture directe** |
+| RPC | `create_room`, `join_room`, `start_game`, `game_action`, `end_turn`, `restart_game`, `leave_room`, `get_current_card` |
+| RLS | `rooms`/`players` en lecture seule, `cards` **totalement inaccessible**, aucune écriture directe |
 | Realtime | publication sur `rooms` et `players` |
 
 ## 4. Activer l'authentification anonyme
@@ -112,31 +112,34 @@ est une phrase, a un mot vide, n'a pas exactement 5 mots interdits, ou est dupli
   avec le message « Cette équipe est complète ».
 - Une partie peut démarrer dès qu'il y a **au moins 1 joueur dans chaque équipe**.
 - **8 tours**, **75 secondes** chacun.
-- À chaque tour, trois rôles :
-  - **Celui qui fait deviner** (`guesser`) voit le mot et le fait deviner à son équipe.
-    Il a les boutons **PASSER** et **MOT TROUVÉ**.
-  - **L'arbitre** (`referee`), toujours dans l'**équipe adverse**, voit lui aussi la carte
-    et possède le bouton **BUZZ**.
-  - Les autres (`player`) ne voient pas le mot : ils devinent.
+- À chaque tour, **exactement 2 personnes sur 8 voient la carte** :
+  - **Celui qui fait deviner** (`guesser`) — le seul de son équipe à voir le mot.
+    Boutons **PASSER** et **MOT TROUVÉ**.
+  - **L'arbitre** (`referee`), toujours dans l'**équipe adverse** : il voit la même carte
+    pour surveiller les mots interdits. Bouton **BUZZ**.
+  - Tous les autres (`player`), **y compris les coéquipiers de celui qui fait deviner**,
+    voient le score, le chrono, les rôles et l'état du tour — mais jamais la carte.
 - **MOT TROUVÉ** = +1 point et nouvelle carte. **PASSER** et **BUZZ** = 0 point et nouvelle carte.
   Dans les trois cas, le chrono continue et la même équipe reste en jeu.
 
 ### Rotation des rôles
 
 Personne ne reste bloqué dans le même rôle. L'équipe qui fait deviner alterne à chaque tour,
-l'arbitre vient toujours d'en face, et **l'arbitre du tour *t* devient celui qui fait deviner
-au tour *t+1*** :
+l'arbitre vient toujours d'en face, et la règle est uniforme :
+**l'arbitre du tour *t* devient celui qui fait deviner au tour *t+1***.
+Le joueur qui fait deviner et l'arbitre changent donc tous les deux à chaque tour.
 
 | Tour | Fait deviner | Arbitre |
 |---|---|---|
 | 1 | A1 | B1 |
-| 2 | B2 | A2 |
-| 3 | A2 | B3 |
-| 4 | B3 | A3 |
-| 5 | A3 | B4 |
-| 6 | B4 | A4 |
-| 7 | A4 | B1 |
-| 8 | B1 | A1 |
+| 2 | B1 | A2 |
+| 3 | A2 | B2 |
+| 4 | B2 | A3 |
+| 5 | A3 | B3 |
+| 6 | B3 | A4 |
+| 7 | A4 | B4 |
+| 8 | B4 | A1 |
+| 9 | *(la rotation recommence : A1 / B1)* | |
 
 Des modulos sur l'effectif réel font que ça fonctionne aussi avec 1, 2 ou 3 joueurs par équipe.
 La logique vit dans `_taboo_assign_roles()` (`supabase/schema.sql`), largement commentée.
@@ -170,10 +173,34 @@ scripts/validate-cards.mjs  garde-fou qualité des cartes (lancé au build)
 scripts/build-schema.mjs    réinjecte cards.json dans schema.sql
 ```
 
+### Sécurité des cartes
+
+Le mot et les mots interdits ne sont **jamais** envoyés aux joueurs qui n'y ont pas droit —
+ce n'est pas un masquage CSS ou React, la donnée ne quitte pas le serveur. Trois verrous :
+
+1. **Le paquet n'est pas dans le bundle.** `data/cards.json` ne sert qu'au seed SQL et au
+   validateur (`scripts/`). Aucun module de `app/`, `components/` ou `lib/` ne l'importe :
+   ouvrir les DevTools et fouiller le JavaScript ne donne aucune carte.
+2. **La table `cards` est inaccessible au client.** Aucune policy RLS de lecture, et le
+   privilège SQL est révoqué pour `anon` et `authenticated`. Un `select * from cards`
+   depuis le navigateur renvoie *permission denied*, même en connaissant
+   `rooms.current_card_id`.
+3. **Le serveur décide qui reçoit quoi.** Les fonctions `security definer` comparent
+   `auth.uid()` à `guesser_id` et `referee_id` :
+   - `_taboo_state()` joint la carte à la réponse **uniquement** pour ces deux joueurs ;
+     pour tous les autres le champ `card` vaut `null` ;
+   - `get_current_card(p_code)` renvoie `null` à quiconque n'est ni l'un ni l'autre.
+
+> Point restant connu : `rooms.current_card_id` est visible par tous (le Realtime pousse la
+> ligne entière, et le client s'en sert pour savoir *quand* redemander sa carte). C'est un
+> entier opaque — il n'est résoluble en mot par aucun client. Comme `used_card_ids` interdit
+> les répétitions, un même id n'apparaît jamais deux fois dans une partie.
+
 ### Ce qui garantit la cohérence multijoueur
 
 - **Supabase est la seule source de vérité.** Aucun état de partie en `localStorage`
-  (seul le pseudo y est mémorisé, par confort).
+  (seul le pseudo y est mémorisé, par confort). Les rôles `guesser`/`referee` sont
+  calculés et stockés côté base, jamais déduits côté React.
 - **Aucune écriture directe depuis le client.** Les policies RLS n'autorisent que le `SELECT` :
   score, rôle, carte, chrono et hôte ne passent que par des fonctions `security definer`
   qui revalident `auth.uid()` et le rôle à chaque appel.

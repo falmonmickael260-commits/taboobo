@@ -1,6 +1,5 @@
 "use client";
 
-import cardsData from "@/data/cards.json";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import type {
   Card,
@@ -11,8 +10,12 @@ import type {
   Team,
 } from "@/lib/types";
 
-export const CARDS = cardsData as Card[];
-const CARDS_BY_ID = new Map<number, Card>(CARDS.map((c) => [c.id, c]));
+/*
+ * Aucune carte n'est importee ici : data/cards.json ne sert qu'au seed SQL et
+ * au validateur (scripts/), il n'entre PAS dans le bundle du navigateur.
+ * Le mot et les mots interdits sont demandes au serveur, tour par tour, via
+ * get_current_card() qui verifie le role de l'appelant.
+ */
 
 /** Alphabet sans caracteres ambigus (pas de O/0, I/1) : un code se dicte au telephone. */
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -172,22 +175,20 @@ export async function fetchPlayers(roomId: string): Promise<Player[]> {
 }
 
 /**
- * Contenu d'une carte. Les cartes sont identiques dans data/cards.json et dans
- * la table `cards` : on lit le paquet local (aucune latence) et on retombe sur
- * la base si un id inconnu apparait. L'id de la carte, lui, vient toujours de
- * Supabase : c'est la source de verite partagee par tous les joueurs.
+ * Demande au serveur le contenu de la carte du tour courant.
+ *
+ * Supabase renvoie null si l'utilisateur n'est ni le joueur qui fait deviner,
+ * ni l'arbitre. Impossible de contourner : la table `cards` n'est lisible par
+ * aucun client (ni policy RLS, ni privilege SQL), et le paquet n'est pas
+ * embarque dans le JavaScript.
  */
-export async function getCard(id: number | null): Promise<Card | null> {
-  if (id == null) return null;
-  const local = CARDS_BY_ID.get(id);
-  if (local) return local;
-
-  const { data } = await supabase.from("cards").select("*").eq("id", id).maybeSingle();
+export async function fetchCurrentCard(code: string): Promise<Card | null> {
+  await ensureAuth();
+  const { data, error } = await supabase.rpc("get_current_card", {
+    p_code: code.toUpperCase(),
+  });
+  if (error) throw new Error(cleanError(error));
   return (data as Card | null) ?? null;
-}
-
-export function getCardSync(id: number | null): Card | null {
-  return id == null ? null : (CARDS_BY_ID.get(id) ?? null);
 }
 
 /* ------------------------------------------------------------------ */

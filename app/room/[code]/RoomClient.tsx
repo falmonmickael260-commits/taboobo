@@ -16,9 +16,8 @@ import {
   fetchPlayers,
   fetchRoomByCode,
   findPlayer,
+  fetchCurrentCard,
   gameAction,
-  getCard,
-  getCardSync,
   joinRoom,
   leaveRoom,
   restartGame,
@@ -68,9 +67,16 @@ export default function RoomClient({ code }: { code: string }) {
   const lastActionAt = useRef<string | null>(null);
   const flashInit = useRef(false);
 
+  // Id de la carte deja chargee : evite de redemander au serveur une carte
+  // qu'une reponse RPC vient de nous donner.
+  const loadedCardId = useRef<number | null>(null);
+
   const applyState = useCallback((state: GameState) => {
     setRoom(state.room);
     setPlayers(state.players ?? []);
+    // Les RPC renvoient la carte uniquement si le serveur nous y autorise.
+    setCard(state.card ?? null);
+    loadedCardId.current = state.card?.id ?? null;
   }, []);
 
   /* ------------------------------------------------------------------ */
@@ -263,21 +269,38 @@ export default function RoomClient({ code }: { code: string }) {
   /* ------------------------------------------------------------------ */
   /*  6. Carte courante + animation d'action                            */
   /* ------------------------------------------------------------------ */
-  const currentCardId = room?.current_card_id ?? null;
+  // Seuls le joueur qui fait deviner et l'arbitre du tour ont le droit de voir
+  // la carte. On ne masque rien cote React : on ne demande la carte au serveur
+  // que dans ces deux cas, et le serveur re-verifie de toute facon le role.
+  const canSeeCard =
+    !!room &&
+    room.status === "playing" &&
+    (room.guesser_id === myId || room.referee_id === myId);
+
   useEffect(() => {
-    const local = getCardSync(currentCardId);
-    if (local || currentCardId === null) {
-      setCard(local);
+    if (!canSeeCard || !room) {
+      setCard(null);
+      loadedCardId.current = null;
       return;
     }
+    if (
+      room.current_card_id !== null &&
+      loadedCardId.current === room.current_card_id
+    ) {
+      return; // deja en main
+    }
     let cancelled = false;
-    void getCard(currentCardId).then((c) => {
-      if (!cancelled) setCard(c);
-    });
+    void fetchCurrentCard(code)
+      .then((c) => {
+        if (cancelled) return;
+        setCard(c);
+        loadedCardId.current = c?.id ?? null;
+      })
+      .catch(() => undefined);
     return () => {
       cancelled = true;
     };
-  }, [currentCardId]);
+  }, [canSeeCard, room, code]);
 
   const lastAction = room?.last_action ?? null;
   const lastAt = room?.last_action_at ?? null;
@@ -546,8 +569,6 @@ export default function RoomClient({ code }: { code: string }) {
   }
 
   /* --- Partie en cours --- */
-  const revealed = myRole === "guesser" || myRole === "referee";
-
   return (
     <Shell>
       <GameHeader
@@ -586,7 +607,7 @@ export default function RoomClient({ code }: { code: string }) {
 
         <TabooCard
           card={card}
-          revealed={revealed}
+          canSee={canSeeCard}
           role={myRole}
           myTeam={me.team}
           currentTeam={room.current_team}

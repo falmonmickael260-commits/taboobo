@@ -195,18 +195,24 @@ $$;
 -- ---------------------------------------------------------------------
 --  Les joueurs d'une equipe sont ordonnes par joined_at (A1, A2, A3, A4).
 --  L'equipe qui fait deviner alterne a chaque tour : A, B, A, B, ...
---  L'arbitre est TOUJOURS dans l'equipe adverse, et l'arbitre du tour t
---  devient le devineur du tour t+1 (rotation croisee).
+--  L'arbitre est TOUJOURS dans l'equipe adverse, et la regle est uniforme :
+--
+--      L'ARBITRE DU TOUR t DEVIENT LE DEVINEUR DU TOUR t+1.
 --
 --  Resultat pour 4 + 4 joueurs :
 --    Tour 1 : A1 devineur / B1 arbitre
---    Tour 2 : B2 devineur / A2 arbitre
---    Tour 3 : A2 devineur / B3 arbitre
---    Tour 4 : B3 devineur / A3 arbitre
---    Tour 5 : A3 devineur / B4 arbitre
---    Tour 6 : B4 devineur / A4 arbitre
---    Tour 7 : A4 devineur / B1 arbitre
---    Tour 8 : B1 devineur / A1 arbitre
+--    Tour 2 : B1 devineur / A2 arbitre
+--    Tour 3 : A2 devineur / B2 arbitre
+--    Tour 4 : B2 devineur / A3 arbitre
+--    Tour 5 : A3 devineur / B3 arbitre
+--    Tour 6 : B3 devineur / A4 arbitre
+--    Tour 7 : A4 devineur / B4 arbitre
+--    Tour 8 : B4 devineur / A1 arbitre
+--    Tour 9 : la rotation recommence (A1 devineur / B1 arbitre)
+--
+--  Le devineur ET l'arbitre changent donc a chaque tour, et comme deux tours
+--  consecutifs concernent deux equipes differentes, ce n'est jamais deux fois
+--  la meme personne d'affilee.
 --
 --  Les modulos garantissent que ca marche aussi avec 1, 2 ou 3 joueurs
 --  par equipe. On n'utilise JAMAIS "order by created_at limit 1", qui
@@ -244,18 +250,14 @@ begin
     -- Tours impairs : l'equipe A fait deviner, l'arbitre vient de B.
     v_team := 'A'; v_ref_team := 'B';
     n_guess := n_a; n_ref := n_b;
-    g_idx := ((p_turn - 1) / 2) % n_guess;
-    if p_turn = 1 then
-      r_idx := 0;                                  -- amorce de la rotation
-    else
-      r_idx := ((p_turn + 1) / 2) % n_ref;         -- futur devineur du tour t+1
-    end if;
+    g_idx := ((p_turn - 1) / 2) % n_guess;          -- t=1,3,5,7 -> A1,A2,A3,A4
+    r_idx := ((p_turn + 1) / 2 - 1) % n_ref;        -- = devineur du tour t+1
   else
     -- Tours pairs : l'equipe B fait deviner, l'arbitre vient de A.
     v_team := 'B'; v_ref_team := 'A';
     n_guess := n_b; n_ref := n_a;
-    g_idx := (p_turn / 2) % n_guess;
-    r_idx := (p_turn / 2) % n_ref;
+    g_idx := (p_turn / 2 - 1) % n_guess;            -- t=2,4,6,8 -> B1,B2,B3,B4
+    r_idx := (p_turn / 2) % n_ref;                  -- = devineur du tour t+1
   end if;
 
   select t.id into v_guesser from (
@@ -292,7 +294,14 @@ end;
 $$;
 
 -- Etat complet renvoye au client apres chaque action.
-create or replace function public._taboo_state(p_room_id uuid)
+--
+-- VERROU DE VISIBILITE DES CARTES : le champ "card" n'est rempli que si
+-- p_uid est le joueur qui fait deviner OU l'arbitre du tour. Pour tous les
+-- autres il vaut null : le mot et les mots interdits ne quittent jamais le
+-- serveur. Ce n'est pas un masquage CSS, la donnee n'est pas envoyee.
+drop function if exists public._taboo_state(uuid);
+
+create or replace function public._taboo_state(p_room_id uuid, p_uid uuid)
 returns json
 language sql
 security definer
@@ -301,7 +310,13 @@ as $$
   select json_build_object(
     'room',    (select row_to_json(r) from public.rooms r where r.id = p_room_id),
     'players', coalesce((select json_agg(row_to_json(p) order by p.joined_at, p.id)
-                           from public.players p where p.room_id = p_room_id), '[]'::json)
+                           from public.players p where p.room_id = p_room_id), '[]'::json),
+    'card',    (select row_to_json(c)
+                  from public.rooms r
+                  join public.cards c on c.id = r.current_card_id
+                 where r.id = p_room_id
+                   and r.status = 'playing'
+                   and (r.guesser_id = p_uid or r.referee_id = p_uid))
   );
 $$;
 
@@ -363,7 +378,7 @@ begin
      set host_player_id = v_uid
    where id = v_room_id;                                   -- WHERE obligatoire
 
-  return public._taboo_state(v_room_id);
+  return public._taboo_state(v_room_id, v_uid);
 end;
 $$;
 
@@ -400,7 +415,7 @@ begin
     update public.players
        set connected = true
      where id = v_uid and room_id = v_room.id;             -- WHERE obligatoire
-    return public._taboo_state(v_room.id);
+    return public._taboo_state(v_room.id, v_uid);
   end if;
 
   -- On exclut le joueur lui-meme : changer d'equipe ne doit pas etre bloque.
@@ -424,7 +439,7 @@ begin
          joined_at = case when players.room_id is distinct from excluded.room_id
                           then now() else players.joined_at end;
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
 end;
 $$;
 
@@ -447,7 +462,7 @@ begin
     raise exception 'Seul l''hote peut demarrer la partie.' using errcode = 'P0001';
   end if;
   if v_room.status = 'playing' then
-    return public._taboo_state(v_room.id);                 -- deja lance : idempotent
+    return public._taboo_state(v_room.id, v_uid);                 -- deja lance : idempotent
   end if;
 
   select count(*) filter (where team = 'A'),
@@ -474,7 +489,7 @@ begin
   perform public._taboo_assign_roles(v_room.id, 1);
   perform public._taboo_next_card(v_room.id);
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
 end;
 $$;
 
@@ -535,7 +550,7 @@ begin
   -- 'pass' et 'buzz' ne rapportent aucun point : on change seulement de carte.
   perform public._taboo_next_card(v_room.id);
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
 end;
 $$;
 
@@ -555,7 +570,7 @@ begin
   v_room := public._taboo_room(p_code);
 
   if v_room.status <> 'playing' then
-    return public._taboo_state(v_room.id);                 -- idempotent
+    return public._taboo_state(v_room.id, v_uid);                 -- idempotent
   end if;
   if not exists (select 1 from public.players where id = v_uid and room_id = v_room.id) then
     raise exception 'Tu n''es pas dans cette room.' using errcode = 'P0001';
@@ -563,7 +578,7 @@ begin
 
   -- Le chrono fait foi cote serveur : tant qu'il reste du temps, on ne fait rien.
   if v_room.turn_ends_at is not null and now() < v_room.turn_ends_at - interval '1 second' then
-    return public._taboo_state(v_room.id);
+    return public._taboo_state(v_room.id, v_uid);
   end if;
 
   v_next := v_room.turn_number + 1;
@@ -575,7 +590,7 @@ begin
      where id = v_room.id
        and turn_number = v_room.turn_number
        and status = 'playing';                             -- WHERE obligatoire
-    return public._taboo_state(v_room.id);
+    return public._taboo_state(v_room.id, v_uid);
   end if;
 
   -- Le "and turn_number = ..." rend l'appel idempotent : si plusieurs clients
@@ -591,13 +606,13 @@ begin
 
   get diagnostics v_rows = row_count;
   if v_rows = 0 then
-    return public._taboo_state(v_room.id);                 -- un autre client a deja avance
+    return public._taboo_state(v_room.id, v_uid);                 -- un autre client a deja avance
   end if;
 
   perform public._taboo_assign_roles(v_room.id, v_next);
   perform public._taboo_next_card(v_room.id);
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
 end;
 $$;
 
@@ -638,7 +653,43 @@ begin
    where room_id = v_room.id
      and role <> 'player';                                 -- WHERE obligatoire
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
+end;
+$$;
+
+-- Renvoie le contenu de la carte du tour courant.
+-- Appelee par le client quand la carte change (evenement Realtime).
+-- Renvoie null - et non une erreur - a toute personne qui n'est ni le joueur
+-- qui fait deviner, ni l'arbitre : aucune information ne fuite.
+create or replace function public.get_current_card(p_code text)
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_uid  uuid;
+  v_room public.rooms;
+  v_card json;
+begin
+  v_uid  := public._taboo_uid();
+  v_room := public._taboo_room(p_code);
+
+  if v_room.status <> 'playing' or v_room.current_card_id is null then
+    return null;
+  end if;
+
+  -- Le serveur decide, pas le client : exactement 2 joueurs par tour.
+  if v_room.guesser_id is distinct from v_uid
+     and v_room.referee_id is distinct from v_uid then
+    return null;
+  end if;
+
+  select row_to_json(c) into v_card
+    from public.cards c
+   where c.id = v_room.current_card_id;
+
+  return v_card;
 end;
 $$;
 
@@ -673,7 +724,7 @@ begin
      where id = v_room.id;                                 -- WHERE obligatoire
   end if;
 
-  return public._taboo_state(v_room.id);
+  return public._taboo_state(v_room.id, v_uid);
 end;
 $$;
 
@@ -690,18 +741,29 @@ alter table public.cards   enable row level security;
 
 drop policy if exists rooms_select   on public.rooms;
 drop policy if exists players_select on public.players;
-drop policy if exists cards_select   on public.cards;
 
+-- rooms et players sont lisibles : le Realtime en depend, et ces lignes ne
+-- contiennent aucun mot a deviner (uniquement scores, roles, chrono, ids).
 create policy rooms_select   on public.rooms   for select to anon, authenticated using (true);
 create policy players_select on public.players for select to anon, authenticated using (true);
-create policy cards_select   on public.cards   for select to anon, authenticated using (true);
+
+-- cards : AUCUNE policy de lecture, volontairement.
+-- Un client ne peut donc jamais faire "select * from cards" pour recuperer le
+-- paquet, meme en connaissant rooms.current_card_id. Seules les fonctions
+-- security definer (_taboo_state, get_current_card, _taboo_next_card), qui
+-- verifient le role du demandeur, ont acces a cette table.
+drop policy if exists cards_select on public.cards;
 
 -- ---------------------------------------------------------------------
 -- 6. GRANTS
 -- ---------------------------------------------------------------------
 
 grant usage on schema public to anon, authenticated;
-grant select on public.rooms, public.players, public.cards to anon, authenticated;
+grant select on public.rooms, public.players to anon, authenticated;
+
+-- Ceinture et bretelles : on retire aussi le privilege SQL sur cards, pour que
+-- la table soit inaccessible meme si une policy etait rajoutee par erreur.
+revoke all on public.cards from anon, authenticated;
 
 grant execute on function public.create_room(text, text)        to authenticated;
 grant execute on function public.join_room(text, text, text)    to authenticated;
@@ -710,6 +772,7 @@ grant execute on function public.game_action(text, text)        to authenticated
 grant execute on function public.end_turn(text)                 to authenticated;
 grant execute on function public.restart_game(text)             to authenticated;
 grant execute on function public.leave_room(text)               to authenticated;
+grant execute on function public.get_current_card(text)         to authenticated;
 grant execute on function public.taboo_turn_seconds()           to anon, authenticated;
 grant execute on function public.taboo_max_turns()              to anon, authenticated;
 grant execute on function public.taboo_max_per_team()           to anon, authenticated;
@@ -719,7 +782,7 @@ revoke execute on function public._taboo_uid()                     from public, 
 revoke execute on function public._taboo_room(text)                from public, anon, authenticated;
 revoke execute on function public._taboo_next_card(uuid)           from public, anon, authenticated;
 revoke execute on function public._taboo_assign_roles(uuid, integer) from public, anon, authenticated;
-revoke execute on function public._taboo_state(uuid)               from public, anon, authenticated;
+revoke execute on function public._taboo_state(uuid, uuid)         from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------
 -- 7. REALTIME
