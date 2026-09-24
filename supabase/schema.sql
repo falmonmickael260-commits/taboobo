@@ -98,9 +98,10 @@ create index if not exists rooms_code_idx on public.rooms (code);
 create or replace function public.taboo_turn_seconds()
 returns integer language sql immutable as $$ select 90 $$;
 
--- Nombre total de tours avant l'ecran de fin (8 = 4 tours par equipe).
+-- Nombre total de tours avant l'ecran de fin (12 = 6 tours par equipe :
+-- a 6 contre 6, les 12 joueurs font deviner une fois chacun).
 create or replace function public.taboo_max_turns()
-returns integer language sql immutable as $$ select 8 $$;
+returns integer language sql immutable as $$ select 12 $$;
 
 -- Nombre maximum de joueurs par equipe (12 joueurs au total).
 create or replace function public.taboo_max_per_team()

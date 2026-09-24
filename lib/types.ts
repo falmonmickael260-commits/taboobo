@@ -56,4 +56,4 @@ export interface GameState {
 export const MAX_PER_TEAM = 6;
 export const MAX_PLAYERS = MAX_PER_TEAM * 2;
 export const TURN_SECONDS = 90;
-export const MAX_TURNS = 8;
+export const MAX_TURNS = 12;

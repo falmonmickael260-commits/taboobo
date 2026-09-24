@@ -111,7 +111,7 @@ est une phrase, a un mot vide, n'a pas exactement 5 mots interdits, ou est dupli
 - **2 équipes**, **6 joueurs maximum** par équipe (12 au total). Un 7ᵉ joueur est refusé
   avec le message « Cette équipe est complète ».
 - Une partie peut démarrer dès qu'il y a **au moins 1 joueur dans chaque équipe**.
-- **8 tours**, **90 secondes** chacun.
+- **12 tours**, **90 secondes** chacun (6 tours par équipe).
 - À chaque tour, **exactement 2 personnes sur 8 voient la carte** :
   - **Celui qui fait deviner** (`guesser`) — le seul de son équipe à voir le mot.
     Boutons **PASSER** et **MOT TROUVÉ**.
@@ -129,6 +129,8 @@ l'arbitre vient toujours d'en face, et la règle est uniforme :
 **l'arbitre du tour *t* devient celui qui fait deviner au tour *t+1***.
 Le joueur qui fait deviner et l'arbitre changent donc tous les deux à chaque tour.
 
+Exemple avec 6 joueurs par équipe :
+
 | Tour | Fait deviner | Arbitre |
 |---|---|---|
 | 1 | A1 | B1 |
@@ -138,8 +140,14 @@ Le joueur qui fait deviner et l'arbitre changent donc tous les deux à chaque to
 | 5 | A3 | B3 |
 | 6 | B3 | A4 |
 | 7 | A4 | B4 |
-| 8 | B4 | A1 |
-| 9 | *(la rotation recommence : A1 / B1)* | |
+| 8 | B4 | A5 |
+| 9 | A5 | B5 |
+| 10 | B5 | A6 |
+| 11 | A6 | B6 |
+| 12 | B6 | A1 |
+
+En 12 tours à 6 contre 6, **les 12 joueurs font deviner une fois chacun** et
+l'arbitrage tourne sur tout le monde.
 
 Des modulos sur l'effectif réel font que ça fonctionne aussi avec 1, 2 ou 3 joueurs par équipe.
 La logique vit dans `_taboo_assign_roles()` (`supabase/schema.sql`), largement commentée.
