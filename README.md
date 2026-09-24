@@ -222,6 +222,8 @@ ce n'est pas un masquage CSS ou React, la donnée ne quitte pas le serveur. Troi
 | `npm start` | sert le build de production |
 | `npm run validate:cards` | vérifie `data/cards.json` seul |
 | `npm run build:schema` | réinjecte `data/cards.json` dans `supabase/schema.sql` |
+| `npm run check:supabase` | diagnostique la connexion Supabase (env, auth, RPC, RLS, Realtime) |
+| `npm run check:supabase -- --play` | idem + vraie partie de test à 2 joueurs |
 
 ### Ajouter des cartes
 

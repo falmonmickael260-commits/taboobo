@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "validate:cards": "node scripts/validate-cards.mjs",
-    "build:schema": "node scripts/build-schema.mjs"
+    "build:schema": "node scripts/build-schema.mjs",
+    "check:supabase": "node scripts/check-supabase.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
