@@ -15,6 +15,11 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+import ws from "ws";
+
+// Node 20 n'expose pas WebSocket nativement : realtime-js a besoin d'un
+// transport explicite. Sans ca, createClient() leve des le premier appel.
+const realtimeOpts = { transport: ws };
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PLAY = process.argv.includes("--play");
@@ -59,6 +64,7 @@ if (failed) process.exit(1);
 
 const supabase = createClient(url, key, {
   auth: { persistSession: false, autoRefreshToken: false },
+  realtime: realtimeOpts,
 });
 
 /* ---------- 2. Authentification anonyme ---------- */
@@ -141,7 +147,11 @@ else warn(`Realtime : ${rt}`,
 if (PLAY) {
   head("6. Partie de test a 2 joueurs");
   const code = "T" + Math.random().toString(36).slice(2, 5).toUpperCase();
-  const mkClient = () => createClient(url, key, { auth: { persistSession: false } });
+  const mkClient = () =>
+    createClient(url, key, {
+      auth: { persistSession: false },
+      realtime: realtimeOpts,
+    });
 
   const p2 = mkClient();
   const { error: e2 } = await p2.auth.signInAnonymously();
