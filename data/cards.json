@@ -1,0 +1,1802 @@
+[
+  {
+    "id": 1,
+    "word": "PIZZA",
+    "forbidden": [
+      "Italie",
+      "pâte",
+      "fromage",
+      "tomate",
+      "four"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 2,
+    "word": "CHOCOLAT",
+    "forbidden": [
+      "cacao",
+      "noir",
+      "tablette",
+      "sucré",
+      "Pâques"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 3,
+    "word": "CROISSANT",
+    "forbidden": [
+      "beurre",
+      "boulangerie",
+      "petit-déjeuner",
+      "viennoiserie",
+      "lune"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 4,
+    "word": "FROMAGE",
+    "forbidden": [
+      "lait",
+      "camembert",
+      "odeur",
+      "vache",
+      "plateau"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 5,
+    "word": "SUSHI",
+    "forbidden": [
+      "Japon",
+      "riz",
+      "poisson cru",
+      "baguettes",
+      "saumon"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 6,
+    "word": "HAMBURGER",
+    "forbidden": [
+      "steak",
+      "pain",
+      "fast-food",
+      "frites",
+      "McDo"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 7,
+    "word": "BAGUETTE",
+    "forbidden": [
+      "pain",
+      "boulangerie",
+      "France",
+      "croustillant",
+      "tradition"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 8,
+    "word": "GLACE",
+    "forbidden": [
+      "vanille",
+      "cornet",
+      "froid",
+      "dessert",
+      "été"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 9,
+    "word": "CAFÉ",
+    "forbidden": [
+      "noir",
+      "expresso",
+      "matin",
+      "tasse",
+      "serré"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 10,
+    "word": "SOUPE",
+    "forbidden": [
+      "légumes",
+      "chaud",
+      "bol",
+      "potage",
+      "cuillère"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 11,
+    "word": "SALADE",
+    "forbidden": [
+      "verte",
+      "laitue",
+      "vinaigrette",
+      "crudités",
+      "saladier"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 12,
+    "word": "CRÊPE",
+    "forbidden": [
+      "Chandeleur",
+      "Bretagne",
+      "poêle",
+      "Nutella",
+      "sucre"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 13,
+    "word": "POPCORN",
+    "forbidden": [
+      "maïs",
+      "cinéma",
+      "salé",
+      "sachet",
+      "éclater"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 14,
+    "word": "MIEL",
+    "forbidden": [
+      "abeille",
+      "ruche",
+      "sucré",
+      "doré",
+      "pot"
+    ],
+    "category": "Nourriture"
+  },
+  {
+    "id": 15,
+    "word": "FOOTBALL",
+    "forbidden": [
+      "ballon",
+      "but",
+      "équipe",
+      "stade",
+      "Mbappé"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 16,
+    "word": "TENNIS",
+    "forbidden": [
+      "raquette",
+      "balle",
+      "filet",
+      "Roland-Garros",
+      "service"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 17,
+    "word": "NATATION",
+    "forbidden": [
+      "piscine",
+      "nager",
+      "brasse",
+      "eau",
+      "maillot"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 18,
+    "word": "BOXE",
+    "forbidden": [
+      "gants",
+      "ring",
+      "KO",
+      "poing",
+      "combat"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 19,
+    "word": "SKI",
+    "forbidden": [
+      "neige",
+      "montagne",
+      "pistes",
+      "hiver",
+      "bâtons"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 20,
+    "word": "VÉLO",
+    "forbidden": [
+      "pédales",
+      "roues",
+      "guidon",
+      "cycliste",
+      "route"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 21,
+    "word": "BASKET",
+    "forbidden": [
+      "panier",
+      "ballon",
+      "dribble",
+      "NBA",
+      "terrain"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 22,
+    "word": "MARATHON",
+    "forbidden": [
+      "courir",
+      "kilomètres",
+      "endurance",
+      "coureur",
+      "épuisant"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 23,
+    "word": "JUDO",
+    "forbidden": [
+      "kimono",
+      "ceinture",
+      "tatami",
+      "Japon",
+      "prise"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 24,
+    "word": "GOLF",
+    "forbidden": [
+      "club",
+      "trou",
+      "balle",
+      "parcours",
+      "green"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 25,
+    "word": "SURF",
+    "forbidden": [
+      "vague",
+      "planche",
+      "océan",
+      "Hawaï",
+      "équilibre"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 26,
+    "word": "ESCALADE",
+    "forbidden": [
+      "mur",
+      "corde",
+      "falaise",
+      "grimper",
+      "prises"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 27,
+    "word": "RUGBY",
+    "forbidden": [
+      "ovale",
+      "mêlée",
+      "essai",
+      "plaquage",
+      "quinze"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 28,
+    "word": "PATINAGE",
+    "forbidden": [
+      "glace",
+      "lames",
+      "tourner",
+      "artistique",
+      "patinoire"
+    ],
+    "category": "Sport"
+  },
+  {
+    "id": 29,
+    "word": "LION",
+    "forbidden": [
+      "savane",
+      "crinière",
+      "roi",
+      "rugir",
+      "Afrique"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 30,
+    "word": "ÉLÉPHANT",
+    "forbidden": [
+      "trompe",
+      "défenses",
+      "gros",
+      "oreilles",
+      "Inde"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 31,
+    "word": "PINGOUIN",
+    "forbidden": [
+      "banquise",
+      "froid",
+      "glace",
+      "nager",
+      "Antarctique"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 32,
+    "word": "REQUIN",
+    "forbidden": [
+      "dents",
+      "océan",
+      "aileron",
+      "dangereux",
+      "mâchoires"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 33,
+    "word": "ARAIGNÉE",
+    "forbidden": [
+      "toile",
+      "pattes",
+      "peur",
+      "insecte",
+      "huit"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 34,
+    "word": "GIRAFE",
+    "forbidden": [
+      "cou",
+      "taches",
+      "grande",
+      "Afrique",
+      "feuilles"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 35,
+    "word": "DAUPHIN",
+    "forbidden": [
+      "mer",
+      "intelligent",
+      "sauter",
+      "nager",
+      "mammifère"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 36,
+    "word": "PAPILLON",
+    "forbidden": [
+      "ailes",
+      "chenille",
+      "fleurs",
+      "coloré",
+      "voler"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 37,
+    "word": "SERPENT",
+    "forbidden": [
+      "venin",
+      "ramper",
+      "écailles",
+      "siffler",
+      "cobra"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 38,
+    "word": "KANGOUROU",
+    "forbidden": [
+      "Australie",
+      "poche",
+      "sauter",
+      "bébé",
+      "marsupial"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 39,
+    "word": "HIBOU",
+    "forbidden": [
+      "nuit",
+      "yeux",
+      "arbre",
+      "hululer",
+      "rapace"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 40,
+    "word": "ABEILLE",
+    "forbidden": [
+      "miel",
+      "ruche",
+      "piquer",
+      "butiner",
+      "reine"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 41,
+    "word": "CHAMEAU",
+    "forbidden": [
+      "désert",
+      "bosses",
+      "Sahara",
+      "caravane",
+      "soif"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 42,
+    "word": "TORTUE",
+    "forbidden": [
+      "carapace",
+      "lente",
+      "mer",
+      "longévité",
+      "pattes"
+    ],
+    "category": "Animaux"
+  },
+  {
+    "id": 43,
+    "word": "TÉLÉPHONE",
+    "forbidden": [
+      "appeler",
+      "écran",
+      "poche",
+      "portable",
+      "sonner"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 44,
+    "word": "PARAPLUIE",
+    "forbidden": [
+      "averse",
+      "ouvrir",
+      "manche",
+      "mouillé",
+      "protéger"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 45,
+    "word": "LUNETTES",
+    "forbidden": [
+      "vue",
+      "verres",
+      "nez",
+      "myope",
+      "monture"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 46,
+    "word": "MIROIR",
+    "forbidden": [
+      "reflet",
+      "verre",
+      "image",
+      "se voir",
+      "accroché"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 47,
+    "word": "VALISE",
+    "forbidden": [
+      "voyage",
+      "bagage",
+      "roulettes",
+      "remplir",
+      "aéroport"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 48,
+    "word": "BOUGIE",
+    "forbidden": [
+      "flamme",
+      "cire",
+      "souffler",
+      "anniversaire",
+      "mèche"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 49,
+    "word": "ÉCHELLE",
+    "forbidden": [
+      "monter",
+      "barreaux",
+      "hauteur",
+      "peintre",
+      "appuyer"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 50,
+    "word": "MARTEAU",
+    "forbidden": [
+      "clou",
+      "taper",
+      "outil",
+      "manche",
+      "bricolage"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 51,
+    "word": "OREILLER",
+    "forbidden": [
+      "dormir",
+      "tête",
+      "lit",
+      "plume",
+      "doux"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 52,
+    "word": "CISEAUX",
+    "forbidden": [
+      "couper",
+      "lames",
+      "papier",
+      "deux trous",
+      "coiffeur"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 53,
+    "word": "PARFUM",
+    "forbidden": [
+      "odeur",
+      "flacon",
+      "sentir",
+      "vaporiser",
+      "luxe"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 54,
+    "word": "AIMANT",
+    "forbidden": [
+      "attirer",
+      "métal",
+      "frigo",
+      "pôle",
+      "magnétique"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 55,
+    "word": "DENTIFRICE",
+    "forbidden": [
+      "dents",
+      "tube",
+      "brosse",
+      "menthe",
+      "hygiène"
+    ],
+    "category": "Objets"
+  },
+  {
+    "id": 56,
+    "word": "POLICIER",
+    "forbidden": [
+      "uniforme",
+      "arrêter",
+      "menottes",
+      "crime",
+      "sirène"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 57,
+    "word": "POMPIER",
+    "forbidden": [
+      "feu",
+      "camion",
+      "échelle",
+      "sauver",
+      "casque"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 58,
+    "word": "DENTISTE",
+    "forbidden": [
+      "dents",
+      "carie",
+      "fauteuil",
+      "roulette",
+      "douleur"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 59,
+    "word": "BOULANGER",
+    "forbidden": [
+      "pain",
+      "four",
+      "farine",
+      "croissant",
+      "fournil"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 60,
+    "word": "PILOTE",
+    "forbidden": [
+      "avion",
+      "cockpit",
+      "voler",
+      "commandant",
+      "atterrir"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 61,
+    "word": "JARDINIER",
+    "forbidden": [
+      "plantes",
+      "tondre",
+      "fleurs",
+      "arroser",
+      "pelouse"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 62,
+    "word": "COIFFEUR",
+    "forbidden": [
+      "cheveux",
+      "ciseaux",
+      "salon",
+      "couper",
+      "shampoing"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 63,
+    "word": "ASTRONAUTE",
+    "forbidden": [
+      "espace",
+      "fusée",
+      "combinaison",
+      "NASA",
+      "apesanteur"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 64,
+    "word": "VÉTÉRINAIRE",
+    "forbidden": [
+      "animaux",
+      "soigner",
+      "chien",
+      "cabinet",
+      "piqûre"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 65,
+    "word": "JOURNALISTE",
+    "forbidden": [
+      "article",
+      "micro",
+      "presse",
+      "enquête",
+      "reportage"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 66,
+    "word": "SERVEUR",
+    "forbidden": [
+      "restaurant",
+      "plateau",
+      "commande",
+      "pourboire",
+      "table"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 67,
+    "word": "ARCHITECTE",
+    "forbidden": [
+      "plans",
+      "bâtiment",
+      "dessiner",
+      "maison",
+      "construire"
+    ],
+    "category": "Métiers"
+  },
+  {
+    "id": 68,
+    "word": "PLAGE",
+    "forbidden": [
+      "sable",
+      "mer",
+      "soleil",
+      "serviette",
+      "vagues"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 69,
+    "word": "ÉCOLE",
+    "forbidden": [
+      "élèves",
+      "classe",
+      "professeur",
+      "cartable",
+      "récréation"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 70,
+    "word": "HÔPITAL",
+    "forbidden": [
+      "médecin",
+      "malade",
+      "urgences",
+      "lit",
+      "infirmière"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 71,
+    "word": "AÉROPORT",
+    "forbidden": [
+      "avion",
+      "bagages",
+      "décollage",
+      "terminal",
+      "douane"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 72,
+    "word": "MONTAGNE",
+    "forbidden": [
+      "sommet",
+      "altitude",
+      "randonnée",
+      "neige",
+      "alpiniste"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 73,
+    "word": "DÉSERT",
+    "forbidden": [
+      "sable",
+      "chaud",
+      "dunes",
+      "Sahara",
+      "soif"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 74,
+    "word": "BIBLIOTHÈQUE",
+    "forbidden": [
+      "livres",
+      "silence",
+      "emprunter",
+      "étagères",
+      "lecture"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 75,
+    "word": "SUPERMARCHÉ",
+    "forbidden": [
+      "courses",
+      "caddie",
+      "caisse",
+      "rayons",
+      "produits"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 76,
+    "word": "PISCINE",
+    "forbidden": [
+      "nager",
+      "eau",
+      "plongeoir",
+      "chlore",
+      "bassin"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 77,
+    "word": "CHÂTEAU",
+    "forbidden": [
+      "roi",
+      "tours",
+      "moyen âge",
+      "douves",
+      "pierre"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 78,
+    "word": "PHARE",
+    "forbidden": [
+      "mer",
+      "lumière",
+      "bateau",
+      "rocher",
+      "tourner"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 79,
+    "word": "VOLCAN",
+    "forbidden": [
+      "lave",
+      "éruption",
+      "cratère",
+      "montagne",
+      "magma"
+    ],
+    "category": "Lieux"
+  },
+  {
+    "id": 80,
+    "word": "ROBOT",
+    "forbidden": [
+      "métal",
+      "humanoïde",
+      "programmé",
+      "usine",
+      "intelligence"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 81,
+    "word": "INTERNET",
+    "forbidden": [
+      "réseau",
+      "navigateur",
+      "connexion",
+      "web",
+      "Google"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 82,
+    "word": "ORDINATEUR",
+    "forbidden": [
+      "clavier",
+      "écran",
+      "souris",
+      "bureau",
+      "portable"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 83,
+    "word": "DRONE",
+    "forbidden": [
+      "voler",
+      "caméra",
+      "télécommande",
+      "hélices",
+      "aérien"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 84,
+    "word": "IMPRIMANTE",
+    "forbidden": [
+      "papier",
+      "encre",
+      "feuille",
+      "bureau",
+      "copie"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 85,
+    "word": "CLAVIER",
+    "forbidden": [
+      "touches",
+      "taper",
+      "lettres",
+      "azerty",
+      "ordinateur"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 86,
+    "word": "WIFI",
+    "forbidden": [
+      "connexion",
+      "réseau",
+      "sans fil",
+      "box",
+      "code"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 87,
+    "word": "BATTERIE",
+    "forbidden": [
+      "charger",
+      "énergie",
+      "câble",
+      "pourcentage",
+      "autonomie"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 88,
+    "word": "ÉCRAN",
+    "forbidden": [
+      "afficher",
+      "pixels",
+      "regarder",
+      "tactile",
+      "lumineux"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 89,
+    "word": "SATELLITE",
+    "forbidden": [
+      "espace",
+      "orbite",
+      "signal",
+      "GPS",
+      "lancer"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 90,
+    "word": "CASQUE AUDIO",
+    "forbidden": [
+      "oreilles",
+      "musique",
+      "écouter",
+      "sans fil",
+      "bluetooth"
+    ],
+    "category": "Technologie"
+  },
+  {
+    "id": 91,
+    "word": "CINÉMA",
+    "forbidden": [
+      "film",
+      "écran",
+      "salle",
+      "popcorn",
+      "séance"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 92,
+    "word": "ZOMBIE",
+    "forbidden": [
+      "mort-vivant",
+      "cerveau",
+      "apocalypse",
+      "marcher",
+      "horreur"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 93,
+    "word": "VAMPIRE",
+    "forbidden": [
+      "sang",
+      "dents",
+      "nuit",
+      "Dracula",
+      "cercueil"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 94,
+    "word": "SUPERHÉROS",
+    "forbidden": [
+      "cape",
+      "pouvoirs",
+      "sauver",
+      "masque",
+      "Marvel"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 95,
+    "word": "OSCAR",
+    "forbidden": [
+      "statuette",
+      "récompense",
+      "Hollywood",
+      "cérémonie",
+      "meilleur"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 96,
+    "word": "DESSIN ANIMÉ",
+    "forbidden": [
+      "enfants",
+      "Disney",
+      "Pixar",
+      "personnages",
+      "télé"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 97,
+    "word": "SCÉNARIO",
+    "forbidden": [
+      "histoire",
+      "écrire",
+      "dialogue",
+      "film",
+      "script"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 98,
+    "word": "RÉALISATEUR",
+    "forbidden": [
+      "film",
+      "action",
+      "caméra",
+      "diriger",
+      "tournage"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 99,
+    "word": "BANDE-ANNONCE",
+    "forbidden": [
+      "extrait",
+      "film",
+      "court",
+      "avant",
+      "promotion"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 100,
+    "word": "STAR WARS",
+    "forbidden": [
+      "sabre",
+      "Dark Vador",
+      "galaxie",
+      "force",
+      "Jedi"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 101,
+    "word": "HARRY POTTER",
+    "forbidden": [
+      "magie",
+      "baguette",
+      "Poudlard",
+      "sorcier",
+      "lunettes"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 102,
+    "word": "JAMES BOND",
+    "forbidden": [
+      "espion",
+      "agent",
+      "007",
+      "Anglais",
+      "smoking"
+    ],
+    "category": "Films"
+  },
+  {
+    "id": 103,
+    "word": "GUITARE",
+    "forbidden": [
+      "cordes",
+      "jouer",
+      "rock",
+      "manche",
+      "accords"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 104,
+    "word": "PIANO",
+    "forbidden": [
+      "touches",
+      "noires",
+      "blanches",
+      "queue",
+      "concerto"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 105,
+    "word": "VIOLON",
+    "forbidden": [
+      "archet",
+      "cordes",
+      "orchestre",
+      "classique",
+      "menton"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 106,
+    "word": "TROMPETTE",
+    "forbidden": [
+      "cuivre",
+      "souffler",
+      "jazz",
+      "pistons",
+      "fanfare"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 107,
+    "word": "KARAOKÉ",
+    "forbidden": [
+      "chanter",
+      "micro",
+      "paroles",
+      "écran",
+      "bar"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 108,
+    "word": "CONCERT",
+    "forbidden": [
+      "scène",
+      "public",
+      "live",
+      "billets",
+      "salle"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 109,
+    "word": "ÉCOUTEURS",
+    "forbidden": [
+      "oreilles",
+      "musique",
+      "fil",
+      "écouter",
+      "petits"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 110,
+    "word": "ORCHESTRE",
+    "forbidden": [
+      "musiciens",
+      "chef",
+      "symphonie",
+      "classique",
+      "instruments"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 111,
+    "word": "RAP",
+    "forbidden": [
+      "rimes",
+      "flow",
+      "hip-hop",
+      "textes",
+      "freestyle"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 112,
+    "word": "TAMBOUR",
+    "forbidden": [
+      "frapper",
+      "peau",
+      "rythme",
+      "baguettes",
+      "percussion"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 113,
+    "word": "CHANTEUR",
+    "forbidden": [
+      "voix",
+      "scène",
+      "micro",
+      "album",
+      "star"
+    ],
+    "category": "Musique"
+  },
+  {
+    "id": 114,
+    "word": "ÉCHECS",
+    "forbidden": [
+      "roi",
+      "dame",
+      "damier",
+      "stratégie",
+      "cavalier"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 115,
+    "word": "PUZZLE",
+    "forbidden": [
+      "pièces",
+      "image",
+      "assembler",
+      "patience",
+      "carton"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 116,
+    "word": "DÉS",
+    "forbidden": [
+      "lancer",
+      "six",
+      "faces",
+      "hasard",
+      "cube"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 117,
+    "word": "DOMINO",
+    "forbidden": [
+      "pièces",
+      "points",
+      "chute",
+      "aligner",
+      "rectangle"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 118,
+    "word": "CACHE-CACHE",
+    "forbidden": [
+      "compter",
+      "trouver",
+      "enfants",
+      "dissimuler",
+      "chercher"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 119,
+    "word": "MANETTE",
+    "forbidden": [
+      "console",
+      "boutons",
+      "joysticks",
+      "jouer",
+      "vibration"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 120,
+    "word": "BILLARD",
+    "forbidden": [
+      "boules",
+      "queue",
+      "table",
+      "trous",
+      "vert"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 121,
+    "word": "FLÉCHETTES",
+    "forbidden": [
+      "cible",
+      "lancer",
+      "bar",
+      "pointes",
+      "centre"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 122,
+    "word": "MONOPOLY",
+    "forbidden": [
+      "plateau",
+      "argent",
+      "rue",
+      "hôtel",
+      "prison"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 123,
+    "word": "SUDOKU",
+    "forbidden": [
+      "chiffres",
+      "grille",
+      "logique",
+      "neuf",
+      "cases"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 124,
+    "word": "LOTO",
+    "forbidden": [
+      "numéros",
+      "tirage",
+      "gagner",
+      "boules",
+      "jackpot"
+    ],
+    "category": "Jeux"
+  },
+  {
+    "id": 125,
+    "word": "AVION",
+    "forbidden": [
+      "voler",
+      "ailes",
+      "hôtesse",
+      "décoller",
+      "nuages"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 126,
+    "word": "PASSEPORT",
+    "forbidden": [
+      "document",
+      "photo",
+      "frontière",
+      "tampon",
+      "identité"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 127,
+    "word": "HÔTEL",
+    "forbidden": [
+      "chambre",
+      "nuit",
+      "réception",
+      "étoiles",
+      "réserver"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 128,
+    "word": "TRAIN",
+    "forbidden": [
+      "rails",
+      "gare",
+      "wagon",
+      "contrôleur",
+      "quai"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 129,
+    "word": "CROISIÈRE",
+    "forbidden": [
+      "bateau",
+      "mer",
+      "cabine",
+      "escale",
+      "luxe"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 130,
+    "word": "CAMPING",
+    "forbidden": [
+      "tente",
+      "nature",
+      "caravane",
+      "feu",
+      "moustiques"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 131,
+    "word": "SAFARI",
+    "forbidden": [
+      "Afrique",
+      "animaux",
+      "jeep",
+      "observer",
+      "brousse"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 132,
+    "word": "BOUSSOLE",
+    "forbidden": [
+      "nord",
+      "aiguille",
+      "direction",
+      "orientation",
+      "perdu"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 133,
+    "word": "DOUANE",
+    "forbidden": [
+      "contrôle",
+      "frontière",
+      "bagages",
+      "agent",
+      "déclarer"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 134,
+    "word": "SOUVENIR",
+    "forbidden": [
+      "rapporter",
+      "boutique",
+      "cadeau",
+      "mémoire",
+      "vacances"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 135,
+    "word": "AUTOSTOP",
+    "forbidden": [
+      "pouce",
+      "route",
+      "voiture",
+      "gratuit",
+      "inconnu"
+    ],
+    "category": "Voyage"
+  },
+  {
+    "id": 136,
+    "word": "MARIAGE",
+    "forbidden": [
+      "robe",
+      "église",
+      "alliance",
+      "mariés",
+      "témoin"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 137,
+    "word": "VOITURE",
+    "forbidden": [
+      "volant",
+      "roues",
+      "conduire",
+      "moteur",
+      "permis"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 138,
+    "word": "VACANCES",
+    "forbidden": [
+      "repos",
+      "été",
+      "partir",
+      "plage",
+      "congés"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 139,
+    "word": "PIRATE",
+    "forbidden": [
+      "bateau",
+      "trésor",
+      "crochet",
+      "perroquet",
+      "borgne"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 140,
+    "word": "ANNIVERSAIRE",
+    "forbidden": [
+      "gâteau",
+      "bougies",
+      "cadeaux",
+      "âge",
+      "fête"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 141,
+    "word": "NOËL",
+    "forbidden": [
+      "sapin",
+      "cadeaux",
+      "décembre",
+      "cheminée",
+      "renne"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 142,
+    "word": "PLUIE",
+    "forbidden": [
+      "eau",
+      "nuages",
+      "averse",
+      "mouillé",
+      "gouttes"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 143,
+    "word": "RÊVE",
+    "forbidden": [
+      "dormir",
+      "nuit",
+      "cauchemar",
+      "imaginer",
+      "sommeil"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 144,
+    "word": "FANTÔME",
+    "forbidden": [
+      "drap",
+      "hanter",
+      "peur",
+      "invisible",
+      "château"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 145,
+    "word": "ARC-EN-CIEL",
+    "forbidden": [
+      "couleurs",
+      "pluie",
+      "soleil",
+      "sept",
+      "prisme"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 146,
+    "word": "SORCIÈRE",
+    "forbidden": [
+      "balai",
+      "chapeau",
+      "potion",
+      "magie",
+      "chaudron"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 147,
+    "word": "DRAPEAU",
+    "forbidden": [
+      "pays",
+      "couleurs",
+      "mât",
+      "hisser",
+      "nation"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 148,
+    "word": "TRÉSOR",
+    "forbidden": [
+      "butin",
+      "coffre",
+      "pirate",
+      "carte",
+      "caché"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 149,
+    "word": "BÉBÉ",
+    "forbidden": [
+      "biberon",
+      "couches",
+      "pleurer",
+      "naissance",
+      "berceau"
+    ],
+    "category": "Général"
+  },
+  {
+    "id": 150,
+    "word": "NEIGE",
+    "forbidden": [
+      "blanc",
+      "froid",
+      "hiver",
+      "flocons",
+      "bonhomme"
+    ],
+    "category": "Général"
+  }
+]
