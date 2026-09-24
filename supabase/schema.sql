@@ -1,5 +1,6 @@
 -- =====================================================================
 --  TABOO LIVE - Schema Supabase complet
+--  By LewisHalmito
 --  A executer entierement dans : Supabase Dashboard > SQL Editor > Run
 --
 --  Ce fichier est IDEMPOTENT : on peut le rejouer sans rien casser.

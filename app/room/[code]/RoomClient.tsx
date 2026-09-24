@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Credit from "@/components/Credit";
 import GameControls from "@/components/GameControls";
 import GameHeader from "@/components/GameHeader";
 import GameOver from "@/components/GameOver";
 import Lobby from "@/components/Lobby";
+import RulesModal, { RULES_SEEN_KEY } from "@/components/RulesModal";
 import ScoreBoard from "@/components/ScoreBoard";
 import TabooCard from "@/components/TabooCard";
 import Timer from "@/components/Timer";
@@ -60,6 +62,7 @@ export default function RoomClient({ code }: { code: string }) {
 
   const [joinName, setJoinName] = useState("");
   const [joinTeam, setJoinTeam] = useState<Team>("A");
+  const [rulesOpen, setRulesOpen] = useState(false);
 
   const wasDisconnected = useRef(false);
   const endGuard = useRef(-1);
@@ -108,6 +111,13 @@ export default function RoomClient({ code }: { code: string }) {
 
     const saved = window.localStorage.getItem("taboo-name");
     if (saved) setJoinName(saved);
+
+    // Les regles s'affichent d'office a la premiere partie sur cet appareil.
+    try {
+      if (!window.localStorage.getItem(RULES_SEEN_KEY)) setRulesOpen(true);
+    } catch {
+      /* navigation privee : on n'insiste pas */
+    }
 
     return () => {
       cancelled = true;
@@ -322,6 +332,15 @@ export default function RoomClient({ code }: { code: string }) {
   /* ------------------------------------------------------------------ */
   /*  7. Actions                                                         */
   /* ------------------------------------------------------------------ */
+  const closeRules = useCallback(() => {
+    setRulesOpen(false);
+    try {
+      window.localStorage.setItem(RULES_SEEN_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
   const run = useCallback(
     async (fn: () => Promise<GameState>) => {
       setBusy(true);
@@ -530,7 +549,11 @@ export default function RoomClient({ code }: { code: string }) {
   if (room.status === "lobby") {
     return (
       <Shell>
-        <GameHeader code={room.code} onLeave={handleLeave} />
+        <GameHeader
+          code={room.code}
+          onLeave={handleLeave}
+          onRules={() => setRulesOpen(true)}
+        />
         <ConnectionNote live={live} reconnected={reconnected} />
         <div className="mt-5">
           <Lobby
@@ -541,9 +564,11 @@ export default function RoomClient({ code }: { code: string }) {
             busy={busy}
             onStart={() => run(() => startGame(code))}
             onSwitchTeam={(t) => run(() => joinRoom(code, me.name, t))}
+            onRules={() => setRulesOpen(true)}
           />
         </div>
         {error && <ErrorNote>{error}</ErrorNote>}
+        <RulesModal open={rulesOpen} onClose={closeRules} />
       </Shell>
     );
   }
@@ -552,8 +577,13 @@ export default function RoomClient({ code }: { code: string }) {
   if (room.status === "finished") {
     return (
       <Shell>
-        <GameHeader code={room.code} onLeave={handleLeave} />
+        <GameHeader
+          code={room.code}
+          onLeave={handleLeave}
+          onRules={() => setRulesOpen(true)}
+        />
         <ConnectionNote live={live} reconnected={reconnected} />
+        <RulesModal open={rulesOpen} onClose={closeRules} />
         <div className="mt-5">
           <GameOver
             room={room}
@@ -576,7 +606,9 @@ export default function RoomClient({ code }: { code: string }) {
         turnNumber={room.turn_number}
         showTurns
         onLeave={handleLeave}
+        onRules={() => setRulesOpen(true)}
       />
+      <RulesModal open={rulesOpen} onClose={closeRules} />
       <ConnectionNote live={live} reconnected={reconnected} />
 
       <div className="mt-4 space-y-4">
@@ -638,7 +670,10 @@ export default function RoomClient({ code }: { code: string }) {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <main className="mx-auto w-full max-w-2xl px-4 py-5 sm:py-8">{children}</main>
+    <main className="mx-auto w-full max-w-2xl px-4 py-5 sm:py-8">
+      {children}
+      <Credit />
+    </main>
   );
 }
 

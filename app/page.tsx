@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Credit from "@/components/Credit";
 import { createRoom, joinRoom, cleanError, ensureAuth } from "@/lib/game";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { MAX_PER_TEAM, TURN_SECONDS, type Team } from "@/lib/types";
@@ -236,6 +237,8 @@ export default function HomePage() {
           </li>
         ))}
       </ul>
+
+      <Credit variant="hero" />
     </main>
   );
 }

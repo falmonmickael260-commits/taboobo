@@ -8,9 +8,16 @@ interface Props {
   turnNumber?: number;
   showTurns?: boolean;
   onLeave?: () => void;
+  onRules?: () => void;
 }
 
-export default function GameHeader({ code, turnNumber, showTurns, onLeave }: Props) {
+export default function GameHeader({
+  code,
+  turnNumber,
+  showTurns,
+  onLeave,
+  onRules,
+}: Props) {
   const [copied, setCopied] = useState(false);
 
   async function copyLink() {
@@ -53,6 +60,17 @@ export default function GameHeader({ code, turnNumber, showTurns, onLeave }: Pro
       )}
 
       <div className="ml-auto flex shrink-0 items-center gap-2">
+        {onRules && (
+          <button
+            type="button"
+            onClick={onRules}
+            aria-label="Comment jouer"
+            title="Comment jouer"
+            className="btn-ghost px-3.5 py-2.5 text-[13px] leading-none"
+          >
+            ?
+          </button>
+        )}
         <button
           type="button"
           onClick={copyLink}

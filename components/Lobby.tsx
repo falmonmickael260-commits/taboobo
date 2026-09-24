@@ -12,6 +12,7 @@ interface Props {
   busy: boolean;
   onStart: () => void;
   onSwitchTeam: (team: Team) => void;
+  onRules: () => void;
 }
 
 export default function Lobby({
@@ -22,6 +23,7 @@ export default function Lobby({
   busy,
   onStart,
   onSwitchTeam,
+  onRules,
 }: Props) {
   const teamA = teamPlayers(players, "A");
   const teamB = teamPlayers(players, "B");
@@ -44,6 +46,14 @@ export default function Lobby({
         <p className="mt-3 text-sm font-medium text-slate-400">
           Partage ce code — ou le lien — pour remplir les équipes.
         </p>
+
+        <button
+          type="button"
+          onClick={onRules}
+          className="btn-ghost mt-4 w-full py-3.5 text-[11px]"
+        >
+          ❓ Comment jouer ?
+        </button>
       </div>
 
       <div className="grid gap-3.5 sm:grid-cols-2">

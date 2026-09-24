@@ -1,5 +1,7 @@
 # 🎯 TABOO LIVE
 
+> **By LewisHalmito**
+
 Jeu de **Taboo multijoueur en temps réel** : 2 équipes, jusqu'à 12 joueurs, 90 secondes par tour.
 Un joueur fait deviner un mot à son équipe sans jamais prononcer les 5 mots interdits — pendant qu'un
 arbitre de l'équipe adverse guette la faute, le doigt sur le buzzer.

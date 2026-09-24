@@ -11,12 +11,16 @@ const display = Outfit({
 
 export const metadata: Metadata = {
   title: "TABOO LIVE — le jeu de mots multijoueur en temps réel",
+  authors: [{ name: "LewisHalmito" }],
+  creator: "LewisHalmito",
+  publisher: "LewisHalmito",
   description:
     "Fais deviner un mot à ton équipe sans jamais prononcer les mots interdits. 2 équipes, 12 joueurs, 90 secondes par tour.",
   applicationName: "Taboo Live",
   openGraph: {
-    title: "TABOO LIVE",
+    title: "TABOO LIVE — by LewisHalmito",
     description: "Fais deviner le mot. Évite les interdits. 90 secondes.",
+    siteName: "TABOO LIVE by LewisHalmito",
     type: "website",
   },
 };

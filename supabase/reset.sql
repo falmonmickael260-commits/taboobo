@@ -1,4 +1,6 @@
 -- =====================================================================
+--  TABOO LIVE — By LewisHalmito
+--
 --  ⚠️  DESTRUCTIF — A N'EXECUTER QU'UNE SEULE FOIS  ⚠️
 --
 --  Supprime integralement une ancienne version du jeu Taboo :
